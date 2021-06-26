@@ -4,8 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @Entity // DB가 해당 객체를 인식 가능
+@Table(name = "board")
+@AllArgsConstructor
+@ToString
 public class Artenity {
 
     @Id // 대표값을 지정
@@ -16,13 +23,4 @@ public class Artenity {
     @Column
     private String content;
 
-    public Artenity(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-    public String toString() {
-        return "ArtForm{title = " + title + " content = " + content + "}";
-    }
 }
