@@ -1,8 +1,8 @@
 package com.example.o2project.demo.Controller;
 
-import com.example.o2project.demo.Dto.ArtForm;
-import com.example.o2project.demo.Enity.Artenity;
-import com.example.o2project.demo.Repository.ArtRepository;
+import com.example.o2project.demo.Dto.BoardDto;
+import com.example.o2project.demo.Enity.BoardEnity;
+import com.example.o2project.demo.Repository.BoardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BaseController {
     @Autowired
-    private ArtRepository ArtRep;
+    private BoardRepository boardRep;
 
     @GetMapping("/aaa")
     public String base() {
@@ -23,13 +23,13 @@ public class BaseController {
     }
 
     @PostMapping("/form")
-    public String frombase(ArtForm Form) {
-        log.info(Form.toString());
+    public String frombase(BoardDto board) {
+        log.info(board.toString());
         // 1. DTO를 Enity로 변환\
-        Artenity artenity = Form.toEntity();
+        BoardEnity artenity = board.toEntity();
         log.info(artenity.toString());
         // 2. Repository에게 Entity를 DB에 저장
-        Artenity saved = ArtRep.save(artenity);
+        BoardEnity saved = boardRep.save(artenity);
         log.info(saved.toString());
 
         return "bbb";

@@ -13,7 +13,7 @@ import lombok.ToString;
 @Table(name = "board")
 @AllArgsConstructor
 @ToString
-public class Artenity {
+public class BoardEnity {
 
     @Id // 대표값을 지정
     @GeneratedValue // 1,2,3 자동증가
