@@ -1,13 +1,17 @@
 package com.example.o2project.demo.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.o2project.demo.Dto.BoardDto;
 import com.example.o2project.demo.Enity.BoardEnity;
-import com.example.o2project.demo.Repository.BoardRepository;
+import com.example.o2project.demo.service.BoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,7 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BaseController {
     @Autowired
-    private BoardRepository boardRep;
+    private BoardService boardservice;
+
+    @Autowired
+    public BaseController(BoardService boardservice) {
+        this.boardservice = boardservice;
+    }
 
     @GetMapping("/aaa")
     public String base() {
@@ -23,16 +32,19 @@ public class BaseController {
     }
 
     @PostMapping("/form")
-    public String frombase(BoardDto board) {
-        log.info(board.toString());
-        // 1. DTO를 Enity로 변환\
-        BoardEnity artenity = board.toEntity();
-        log.info(artenity.toString());
-        // 2. Repository에게 Entity를 DB에 저장
-        BoardEnity saved = boardRep.save(artenity);
-        log.info(saved.toString());
+    public Map<String, Object> save(@RequestBody BoardDto boarddto) {
+        Map<String, Object> response = new HashMap<>();
 
-        return "bbb";
+        BoardEnity board = boardservice.save(boarddto);
+        if (board != null) {
+            response.put("result", "게시판 글작성 성공");
+            response.put("user", board);
+        } else {
+            response.put("result", "FAIL");
+            response.put("reason", "게시판 글작성 실패");
+        }
+
+        return response;
     }
 
 }
