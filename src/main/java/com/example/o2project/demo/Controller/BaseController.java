@@ -31,10 +31,10 @@ public class BaseController {
     }
 
     @PostMapping("/form")
-    public Map<String, Object> save(@RequestBody BoardDto boarddto) {
+    public Map<String, Object> save(@RequestBody Board board) {
         Map<String, Object> response = new HashMap<>();
 
-        Board board = boardservice.save(boarddto);
+        Board board = boardservice.save(board);
         if (board != null) {
             response.put("result", "게시판 글작성 성공");
             response.put("user", board);
