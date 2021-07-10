@@ -3,6 +3,8 @@ package com.example.o2project.demo.Controller;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
 import com.example.o2project.demo.Repository.UserRepository;
 import com.example.o2project.demo.model.RoleType;
 import com.example.o2project.demo.model.User;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,7 +73,32 @@ public class DummyController {
     public Page<User> pageList(
             @PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
+
         return users;
+    }
+
+    /*
+     * save 함수는 id를 전달하지 않으면 insert를 해주고 id를 전달하면 해당 id에 대한 데이터가 있으면 update를 진행함 id를
+     * 전달해도 해당 id에 대한 데이터가 없으면 insert를 진행함 Transactional만 걸면 save 함수를 사용하지 않아도 sql를
+     * 진행함 이것을 더티체킹이라함
+     */
+    @Transactional
+    @PutMapping("/dummy/user/{id}")
+    public User UpdateUser(@PathVariable int id, @RequestBody User requestuser) {
+        System.out.println("ID" + id);
+        System.out.println("PASSWORD" + requestuser.getPassword());
+        System.out.println("EMAIL" + requestuser.getEmail());
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("수정에 실패하였습니다.");
+        });
+        user.setPassword(requestuser.getPassword());
+        user.setEmail(requestuser.getEmail());
+
+        // userRepository.save(user);
+        // 더티 체킹
+
+        return null;
+
     }
 
 }
