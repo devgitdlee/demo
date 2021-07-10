@@ -9,23 +9,7 @@ public class ApiController {
     @RequestMapping(value = "/api/test", method = RequestMethod.GET)
     // @respone
     public String getApiTest() {
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
-        return "";
+        return null;
 
     }
 }

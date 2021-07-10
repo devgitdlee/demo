@@ -1,6 +1,6 @@
 package com.example.o2project.demo.VO;
 
-public class UserdVo {
+public class UserVo {
 
     private Long id;
 

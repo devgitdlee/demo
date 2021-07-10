@@ -30,20 +30,20 @@ public class BaseController {
         return "aaa";
     }
 
-    @PostMapping("/form")
-    public Map<String, Object> save(@RequestBody Board board) {
-        Map<String, Object> response = new HashMap<>();
+    // @PostMapping("/form")
+    // public Map<String, Object> save(@RequestBody Board board) {
+    // Map<String, Object> response = new HashMap<>();
 
-        Board board = boardservice.save(board);
-        if (board != null) {
-            response.put("result", "게시판 글작성 성공");
-            response.put("user", board);
-        } else {
-            response.put("result", "FAIL");
-            response.put("reason", "게시판 글작성 실패");
-        }
+    // Board board = boardservice.save(board);
+    // if (board != null) {
+    // response.put("result", "게시판 글작성 성공");
+    // response.put("user", board);
+    // } else {
+    // response.put("result", "FAIL");
+    // response.put("reason", "게시판 글작성 실패");
+    // }
 
-        return response;
-    }
+    // return response;
+    // }
 
 }

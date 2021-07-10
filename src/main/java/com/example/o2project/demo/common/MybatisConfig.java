@@ -20,7 +20,7 @@ public class MybatisConfig {
 	public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
-		sqlSessionFactoryBean.setTypeAliasesPackage("com.example.o2project.demo.Enity");
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.example.o2project.demo.model");
 		sqlSessionFactoryBean.setMapperLocations(
 				new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*-mapper.xml"));
 		return sqlSessionFactoryBean.getObject();
